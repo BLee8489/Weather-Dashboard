@@ -26,3 +26,16 @@ let searchHistory = document.querySelector("#searchHistory")
 
 fetchCurrent()
 fetchFiveDay()
+
+// Add event listener to the search button and display the values for fetch 
+submitCityInput.addEventListener("click", function(e){
+  e.preventDefault()
+ 
+  search.push(cityNameInput.value)
+  localStorage.setItem("search", JSON.stringify(search))
+  fetchCurrent(cityNameInput.value)
+  fetchFiveDay(cityNameInput.value)
+  appendHistory()
+})
+
+// Fetch 5 day url and append values to HTML 
