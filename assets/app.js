@@ -30,7 +30,7 @@ fetchFiveDay()
 // Fetch the current day weather and appending values to the HTML content
 function fetchCurrent(cityValue) {
   if(!cityValue){
-    cityValue = "oakland"
+    cityValue = "walnut creek"
   }
   let currentUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + cityValue + "&appid=" + apiKey + "&units=imperial"
   fetch(currentUrl)
