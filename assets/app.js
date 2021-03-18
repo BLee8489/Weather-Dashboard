@@ -27,6 +27,36 @@ let searchHistory = document.querySelector("#searchHistory")
 fetchCurrent()
 fetchFiveDay()
 
+// Fetch the current day weather and appending values to the HTML content
+function fetchCurrent(cityValue) {
+  if(!cityValue){
+    cityValue = "oakland"
+  }
+  let currentUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + cityValue + "&appid=" + apiKey + "&units=imperial"
+  fetch(currentUrl)
+  .then(function (response) {
+    return response.json();
+  })
+  .then(function (data) {
+    console.log(data);
+    let uvIndexUrl = "https://api.openweathermap.org/data/2.5/uvi?lat=" + data.coord.lat + "&lon=" + data.coord.lon + "&APPID=" + apiKey
+  fetch(uvIndexUrl)
+  .then(function (response) {
+    return response.json();
+  })
+  .then(function (uvData) {
+    console.log(uvData);
+    currentCity.innerHTML = data.name + ": " + new Date().toLocaleString() 
+    currentCityTemp.innerHTML = "Temperature: " + data.main.temp + " °F"
+    currentCityHumid.innerHTML = "Humidity: " + data.main.humidity + "%"
+    currentCityWind.innerHTML = "Wind Speed: " + data.wind.speed + " MPH"
+    currentCityUv.innerHTML = "UV Index: " + uvData.value
+  });
+ });
+}
+
+let search = []
+
 // Add event listener to the search button and display the values for fetch 
 submitCityInput.addEventListener("click", function(e){
   e.preventDefault()
