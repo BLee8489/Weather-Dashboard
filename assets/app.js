@@ -68,3 +68,23 @@ function fetchFiveDay(cityValue) {
         dayFiveHumid.innerHTML = "Humidity: " + data.list[36].main.humidity + "%"
       });
 };
+
+    //Append saved city searches with click event listener
+    function appendHistory() {
+      let getSearchHistory = JSON.parse(localStorage.getItem("search"))
+      searchHistory.innerHTML = "";
+      for (let i=0; i < getSearchHistory.length; i++) {
+          let savedCity = document.createElement("input");
+          savedCity.setAttribute("class", "form-control d-block bg-white");
+          savedCity.setAttribute("readonly", true);
+          savedCity.setAttribute("type", "text");
+          savedCity.setAttribute("value", getSearchHistory[i]);
+          savedCity.addEventListener("click",function() {
+                  fetchCurrent(savedCity.value)
+                  fetchFiveDay(savedCity.value)
+          })
+              searchHistory.appendChild(savedCity);
+              console.log(searchHistory.length)
+      }
+    }
+        
